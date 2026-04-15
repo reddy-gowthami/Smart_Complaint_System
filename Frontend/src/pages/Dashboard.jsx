@@ -10,7 +10,7 @@ function Dashboard() {
   useEffect(() => {
     if (!user) return;
 
-    API.get(`/api/complaints/user/${user.id}`)
+    API.get(`/complaints/user/${user.id}`)
       .then(res => setComplaints(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -19,13 +19,13 @@ function Dashboard() {
     if (!title) return alert("Enter complaint");
 
     try {
-      await API.post("/api/complaints", {
+      await API.post("/complaints", {
         title,
         userId: user.id
       });
 
       setTitle(""); // clear input
-      fetchComplaints(); // refresh list
+      window.location.reload(); // refresh list
     } catch (err) {
       console.error(err);
     }
