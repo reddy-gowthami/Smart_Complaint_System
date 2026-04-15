@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -17,9 +19,9 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(res.data));
 
         if (res.data.role === "ADMIN") {
-          window.location.href = "/admin";
+          navigate("/admin");
         } else {
-          window.location.href = "/dashboard";
+          navigate("/dashboard");
         }
       } else {
         alert("Invalid credentials");
